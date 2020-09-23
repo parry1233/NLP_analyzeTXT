@@ -20,13 +20,19 @@ words = word_tokenize(text)
 print("Words count:\n",len(words))
 print("Words:\n",words)
 
-# frequency calculate
-from nltk.probability import FreqDist
-# remove punctuation marks
+# remove punctuation marks and stopwards
+from nltk.corpus import stopwords
+#if package:punkt is missing add next line...
+#nltk.download('stopwords')
+stopwords_list = stopwords.words("english")
 words_freq = []
 for single_word in words:
     if(single_word.isalpha()):
-        words_freq.append(single_word.lower())
+        if(single_word not in stopwords_list):
+            words_freq.append(single_word.lower())
+
+# frequency calculate
+from nltk.probability import FreqDist
 freq = FreqDist(words_freq)
 print("Top frequent words:\n",freq.most_common(20))
 
